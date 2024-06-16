@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Data</title>
+    <script>
+        function fetchLiveData() {
+            fetch('/live_data')
+                .then(response => response.json())
+                .then(data => {
+                    const display = document.getElementById('live-data');
+                    display.innerHTML = '';
+                    for (const [iess, value] of Object.entries(data)) {
+                        const p = document.createElement('p');
+                        p.textContent = `${iess}: ${value}`;
+                        display.appendChild(p);
+                    }
+                });
+        }
+
+        setInterval(fetchLiveData, 1000);
+    </script>
+</head>
+<body>
+    <h1>Live Data</h1>
+    <div id="live-data"></div>
+</body>
+</html>
